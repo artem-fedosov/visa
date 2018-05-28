@@ -100,6 +100,8 @@ if __name__ == '__main__':
         ('2017-10-16', '2017-11-28'),
         ('2018-01-15', '2018-02-27'),
         ('2018-04-16', '2018-05-30'),
+        ('2018-07-16', '2018-08-28'),
+        ('2018-10-16', '2018-11-29'),
     ])
 
     interval = find_next_interval(
@@ -112,6 +114,6 @@ if __name__ == '__main__':
     intervals = previous_date_intervals + [interval]
     for i1, i2 in zip(intervals[:-1], intervals[1:]):
         days_between = (i2.begin - i1.end).days - 1
-        print(i1, i2, i1.day_count, days_between)
+        print(i1, i2, f"day_count={i1.day_count}", f"days_between={days_between}")
 
     # print(interval)
