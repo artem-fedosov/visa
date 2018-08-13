@@ -40,7 +40,10 @@ def parse_intervals(dates_raw: List[Tuple[str, str]]) -> List[DateInterval]:
     return [DateInterval.from_raw_interval(*interval) for interval in dates_raw]
 
 
-def follow_regulations(date_intervals: List[DateInterval], check_period: int, allowed_days_per_check_period: int):
+def follow_regulations(date_intervals: List[DateInterval],
+                       check_period: int,
+                       allowed_days_per_check_period: int) -> bool:
+    """Checks whether given date intervals follow regulations"""
     first_day = date_intervals[0].begin
     day_count = (date_intervals[-1].end - first_day).days + 1
     days = [0] * day_count
@@ -63,7 +66,8 @@ def follow_regulations(date_intervals: List[DateInterval], check_period: int, al
 def find_next_interval(previous_visits: List[DateInterval],
                        planned_duration: int,
                        check_period: int,
-                       allowed_days_per_check_period: int):
+                       allowed_days_per_check_period: int) -> DateInterval:
+
     """Finds soonest possible interval that satisfies regulations.
     Given that the data is small, it computes result very fast
     even with current implementation.
@@ -116,5 +120,3 @@ if __name__ == '__main__':
     for i1, i2 in zip(intervals[:-1], intervals[1:]):
         days_between = (i2.begin - i1.end).days - 1
         print(i1, i2, f"day_count={i1.day_count}", f"days_between={days_between}")
-
-    # print(interval)
